@@ -6,8 +6,17 @@ final router = GoRouter(
     homeRouter,
     loginRouter,
     boardRouter,
-  ]
+  ],
+  redirect: routeRedirect,
 );
+
+FutureOr<String?> routeRedirect(context, state) async {
+  final supaClient = Supabase.instance.client;
+  if (supaClient.auth.currentUser == null) {
+    return '/login';
+  }
+  return null;
+}
 
 final homeRouter = GoRoute(
   path: '/home',
