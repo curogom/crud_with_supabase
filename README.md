@@ -4,13 +4,28 @@ Create Flutter CRUD Board with Supabase (feat. 2nd IGNIGHT, CodeFactory)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+#### Install Flutter (3.24.4)
+https://flutter.dev
 
-A few resources to get you started if this is your first Flutter project:
+#### Need Dependencies (Flutter)
+- dependencies
+    -  riverpod 2.6.0
+    - go_router 14.3
+    - supabase_flutter: 2.8.0
+    - riverpod_annotation: 2.6.0
+    - logger 2.4.0
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- dev_dependencies
+    - riverpod_lint 2.6.1
+    - custom_lint 0.6.8
+    - riverpod_generator 2.4.3
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Install Supabase CLI
+https://supabase.com/docs/guides/local-development/cli/getting-started
+
+#### Deploy Supabase Edge Function
+
+#### Create Supabase Database Boards Table
+![alt text](boards_columns_example.png)
+
+#### Run build_runner (for Riverpod Generator)
