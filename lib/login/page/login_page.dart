@@ -1,4 +1,3 @@
-import 'package:crud_with_supabase/common/logger.dart';
 import 'package:crud_with_supabase/login/provider/login_async_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -126,7 +125,6 @@ class _LoginFormWidget extends ConsumerWidget {
                 ElevatedButton(
                   onPressed: () async {
                     final result = await _login(ref);
-                    logger.d('$result, ${context.mounted}');
 
                     if (result && context.mounted) {
                       context.goNamed('home');
@@ -136,14 +134,7 @@ class _LoginFormWidget extends ConsumerWidget {
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
-                  onPressed: () async {
-                    final result = await _login(ref);
-                    logger.d('$result, ${context.mounted}');
-
-                    if (result && context.mounted) {
-                      context.goNamed('home');
-                    }
-                  },
+                  onPressed: () => context.pushNamed('sign-up'),
                   child: const Text('Sign-up'),
                 ),
               ],

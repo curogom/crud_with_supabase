@@ -5,13 +5,21 @@ final router = GoRouter(
   routes: [
     homeRouter,
     loginRouter,
-    boardRouter,
   ],
   redirect: routeRedirect,
 );
 
-FutureOr<String?> routeRedirect(context, state) async {
+FutureOr<String?> routeRedirect(
+    BuildContext context, GoRouterState state) async {
   final supaClient = Supabase.instance.client;
+
+  if (state.fullPath?.contains('login') ?? false) {
+    if (supaClient.auth.currentUser != null) {
+      return '/home';
+    }
+    return null;
+  }
+
   if (supaClient.auth.currentUser == null) {
     return '/login';
   }
@@ -22,46 +30,30 @@ final homeRouter = GoRoute(
   path: '/home',
   name: 'home',
   builder: (context, state) => const HomePage(),
+  routes: [
+    GoRoute(
+      path: 'write',
+      name: 'write',
+      builder: (context, state) => const BoardWritePage(),
+    ),
+    GoRoute(
+      path: 'detail/:id',
+      name: 'detail',
+      builder: (context, state) =>
+          BoardDetailPage(id: state.pathParameters['id']!),
+    ),
+  ],
 );
 
 final loginRouter = GoRoute(
   path: '/login',
   name: 'login',
   builder: (context, state) => const LoginPage(),
-);
-
-final boardRouter = GoRoute(
-  path: '/board',
-  name: 'board',
-  builder: (context, state) => const BoardListPage(),
   routes: [
-    boardDetailRouter,
-    boardEditRouter,
-    boardWriteRouter,
-    boardDeleteRouter,
+    GoRoute(
+      path: 'sign-up',
+      name: 'sign-up',
+      builder: (context, state) => const SignUpPage(),
+    ),
   ],
-);
-
-final boardDetailRouter = GoRoute(
-  path: '/:id',
-  name: 'detail',
-  builder: (context, state) => BoardDetailPage(id: state.pathParameters['id']),
-);
-
-final boardEditRouter = GoRoute(
-  path: '/:id/edit',
-  name: 'edit',
-  builder: (context, state) => BoardEditPage(id: state.pathParameters['id']),
-);
-
-final boardWriteRouter = GoRoute(
-  path: '/write',
-  name: 'write',
-  builder: (context, state) => const BoardWritePage(),
-);
-
-final boardDeleteRouter = GoRoute(
-  path: '/:id/delete',
-  name: 'delete',
-  builder: (context, state) => BoardDeletePage(id: state.pathParameters['id']),
 );
