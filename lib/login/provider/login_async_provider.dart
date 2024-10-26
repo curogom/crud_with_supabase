@@ -10,6 +10,7 @@ class LoginAsyncNotifier extends _$LoginAsyncNotifier {
 
   @override
   FutureOr<void> build() async {
+    _client = Supabase.instance.client;
     return null;
   }
 
