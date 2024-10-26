@@ -89,8 +89,10 @@ class _LoginFormWidget extends ConsumerWidget {
   final TextEditingController pwController;
 
   Future<bool> _login(LoginAsyncNotifier notifier) async {
-    final result =
-        notifier.login(email: idController.text, password: pwController.text);
+    final result = notifier.login(
+      email: idController.text,
+      password: pwController.text,
+    );
 
     return result;
   }

@@ -6,32 +6,23 @@ part 'login_async_provider.g.dart';
 
 @riverpod
 class LoginAsyncNotifier extends _$LoginAsyncNotifier {
+  late final SupabaseClient _client;
+
   @override
   FutureOr<void> build() async {
     return null;
   }
 
   Future<void> logout() async {
-    final supaClient = Supabase.instance.client;
-    await supaClient.auth.signOut();
+    await _client.auth.signOut();
   }
 
   Future<bool> login({required String email, required String password}) async {
     try {
-      final supaClient = Supabase.instance.client;
-
-      final res = await supaClient.auth
-          .signInWithPassword(
+      final res = await _client.auth.signInWithPassword(
         email: email,
         password: password,
-      )
-          .timeout(const Duration(seconds: 1), onTimeout: () {
-        state = AsyncError(
-          CRUDAuthException.wrongIDorPassword,
-          StackTrace.current,
-        );
-        return AuthResponse();
-      });
+      );
 
       final session = res.session;
       final user = res.user;
