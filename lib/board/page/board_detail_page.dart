@@ -68,10 +68,7 @@ class _BoardDeleteButton extends StatelessWidget {
         ElevatedButton(
           onPressed: () async {
             await notifier.delete('${board.id}');
-
-            if (context.mounted) {
-              context.goNamed('home');
-            }
+            context.goNamed('home');
           },
           child: const Text('Delete'),
         ),

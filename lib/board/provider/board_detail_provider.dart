@@ -27,8 +27,6 @@ class BoardDetailNotifier extends _$BoardDetailNotifier {
   bool get isWriter => _client.auth.currentUser?.id == state.value?.writerId;
 
   Future<void> delete(String id) async {
-    state = const AsyncValue.loading();
-
     await _client.functions.invoke(
       'crud-function',
       queryParameters: {'id': id},
