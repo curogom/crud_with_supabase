@@ -17,8 +17,6 @@ class LoginAsyncNotifier extends _$LoginAsyncNotifier {
   }
 
   Future<bool> login({required String email, required String password}) async {
-    state = const AsyncLoading();
-
     try {
       final supaClient = Supabase.instance.client;
 

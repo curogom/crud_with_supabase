@@ -88,17 +88,17 @@ class _LoginFormWidget extends ConsumerWidget {
   final TextEditingController idController;
   final TextEditingController pwController;
 
-  Future<bool> _login(WidgetRef ref) async {
-    final result = await ref.read(loginAsyncNotifierProvider.notifier).login(
-          email: idController.text,
-          password: pwController.text,
-        );
+  Future<bool> _login(LoginAsyncNotifier notifier) async {
+    final result =
+        notifier.login(email: idController.text, password: pwController.text);
 
     return result;
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(loginAsyncNotifierProvider.notifier);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -124,7 +124,7 @@ class _LoginFormWidget extends ConsumerWidget {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    final result = await _login(ref);
+                    final result = await _login(notifier);
 
                     if (result && context.mounted) {
                       context.goNamed('home');
